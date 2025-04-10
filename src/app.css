@@ -1,0 +1,72 @@
+/* Remove number input arrows in Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove number input arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Speech Bubble Styles */
+.speech-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 2px solid #333;
+  border-radius: 15px;
+  padding: 8px 12px;
+  min-width: 40px;
+  max-width: 200px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  word-wrap: break-word;
+  animation: bubbleFadeIn 0.3s ease-out;
+  margin-bottom: 10px;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+@keyframes bubbleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Collision Effect */
+.colliding {
+  animation: collisionFlash 0.3s;
+  box-shadow: 0 0 15px red;
+}
+
+@keyframes collisionFlash {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

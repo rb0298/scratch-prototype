@@ -1,11 +1,13 @@
 import React from "react";
+import { forwardRef } from "react";
 
-export default function CatSprite() {
+
+const CatSprite = ({ width = 90, height = 100 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="95.17898101806641"
-      height="100.04156036376953"
+      width={width}
+      height={height}
       viewBox="0.3210171699523926 0.3000000357627869 95.17898101806641 100.04156036376953"
       version="1.1"
       xmlSpace="preserve"
@@ -181,4 +183,6 @@ export default function CatSprite() {
       </g>
     </svg>
   );
-}
+};
+
+export default CatSprite

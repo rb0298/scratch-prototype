@@ -7,6 +7,7 @@
     "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
+    "lucide-react": "^0.487.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "tailwindcss": "^2.0.1"
