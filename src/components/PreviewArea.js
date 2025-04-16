@@ -100,7 +100,6 @@ export default function PreviewArea({ avatarInstances, setAvatarInstances, selec
   }, []);
 
 
-
   return (
     <div className="flex flex-col space-y-4 h-full p-4 bg-gray-50">
       <div
@@ -116,6 +115,7 @@ export default function PreviewArea({ avatarInstances, setAvatarInstances, selec
             style={{
               left: `${avatar?.position?.x}%`,
               top: `${avatar?.position?.y}%`,
+              pointerEvents: play ? "none" : "auto"
             }}
             onMouseDown={(e) => handleMouseDown(e, avatar.id)}
             onClick={() => setSelectedInstance(avatar)}
@@ -182,6 +182,7 @@ export default function PreviewArea({ avatarInstances, setAvatarInstances, selec
                 className="absolute -top-2 -right-2 w-6 h-6 bg-white border border-red-200 text-red-600 rounded-full flex items-center justify-center shadow-md hover:bg-red-50 hover:scale-105 transition-all duration-200"
                 onClick={(e) => handleDeleteAvatar(e, avatar)}
                 title="Delete Avatar"
+                disabled={play}
               >
                 <Trash2 color="currentColor" size={14} />
               </button>

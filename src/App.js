@@ -18,7 +18,6 @@ export default function App() {
   const [selectedInstance, setSelectedInstance] = useState(avatarInstances?.[0] || null);
   const selectedAvatarIndex = avatarInstances.findIndex(avatar => avatar.id === selectedInstance?.id);
 
-
   const engineRef = useRef(null);
   const handleUpdateBlock = (avatarId, newBlocks) => {
     setAvatarInstances((prevAvatars) =>
@@ -31,73 +30,62 @@ export default function App() {
     setSelectedInstance(prevAvatar => ({ ...prevAvatar, blocks: newBlocks }));
   };
 
-  const handlePlay = (newplay) => {
+  const handlePlay = async (newplay) => {
     setPlay(newplay);
-  }
-
-  useEffect(() => {
     if (!selectedInstance) return;
-
     // Initialize engine only once
     if (!engineRef.current) {
       engineRef.current = new ScratchMultiSpriteEngine();
     }
 
-    // Get current sprite IDs from engine
-    const currentSpriteIds = engineRef.current.sprites
-      ? Array.from(engineRef.current.sprites.keys())
-      : [];
 
-    // Process all avatars
-    avatarInstances.forEach(avatar => {
-      const { id, position: { x, y }, blocks } = avatar;
-      const element = document.getElementById(id);
+    if (newplay) {
+      // Get current sprite IDs from engine
+      const currentSpriteIds = engineRef.current.sprites
+        ? Array.from(engineRef.current.sprites.keys())
+        : [];
 
-      if (!currentSpriteIds.includes(id)) {
-        // Register new avatar
-        engineRef.current.registerSprite(id, element, { x, y }, blocks);
-      } else {
-        // Update existing avatar position
-        const sprite = engineRef.current.sprites.get(id);
-        if (sprite) {
-          sprite.state.x = x;
-          sprite.state.y = y;
-          sprite.blocks = blocks;
-          engineRef.current.updateVisuals(id);
+      // Process all avatars
+      avatarInstances.forEach(avatar => {
+        const { id, position: { x, y }, blocks } = avatar;
+        const element = document.getElementById(id);
+
+        if (!currentSpriteIds.includes(id)) {
+          // Register new avatar
+          engineRef.current.registerSprite(id, element, { x, y }, blocks);
+        } else {
+          // Update existing avatar position
+          const sprite = engineRef.current.sprites.get(id);
+          if (sprite) {
+            sprite.state.x = x;
+            sprite.state.y = y;
+            sprite.blocks = blocks;
+            engineRef.current.updateVisuals(id);
+          }
         }
-      }
-    });
-
-    // Cleanup removed avatars
-    currentSpriteIds.forEach(id => {
-      if (!avatarInstances.some(avatar => avatar.id === id)) {
-        engineRef.current.unregisterSprite(id);
-      }
-    });
-
-    async function play() {
-      if (play) {
-
-        await engineRef.current.playAll();
-        setPlay(false);
-        setAvatarInstances(avatarInstances.map(prevAvatar => {
-          const { id } = prevAvatar;
-          console.log(engineRef.current.sprites.get(id).state)
-          const { x, y } = engineRef.current.sprites.get(id).state
-          return { ...prevAvatar, position: { x, y } };
-        }))
-        setSelectedInstance(prevInstance => {
-          const { x, y } = engineRef.current.sprites.get(prevInstance.id).state
-          return { ...prevInstance, position: { x, y } };
-        })
-      } else {
-        engineRef.current.stopAll();
-      }
-
+      });
+      // Cleanup removed avatars
+      currentSpriteIds.forEach(id => {
+        if (!avatarInstances.some(avatar => avatar.id === id)) {
+          engineRef.current.unregisterSprite(id);
+        }
+      });
+      await engineRef.current.playAll();
+    } else {
+      engineRef.current.stopAll();
     }
-    play();
-
-  }, [play]);
+    setPlay(false);
+    setAvatarInstances(avatarInstances.map(prevAvatar => {
+      const { id } = prevAvatar;
+      console.log(engineRef.current.sprites.get(id).state)
+      const { x, y } = engineRef.current.sprites.get(id).state
+      return { ...prevAvatar, position: { x, y } };
+    }))
+    setSelectedInstance(prevInstance => {
+      const { x, y } = engineRef.current.sprites.get(prevInstance.id).state
+      return { ...prevInstance, position: { x, y } };
+    })
+  }
 
   return (
     <div className="bg-blue-100 pt-6 font-sans">

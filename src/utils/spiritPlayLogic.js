@@ -117,7 +117,7 @@ export class ScratchMultiSpriteEngine {
 
             case 'steps':
                 const rad = (state.rotation * Math.PI) / 180;
-                const steps = value.steps * state.direction;
+                const steps = (value.steps / 2) * state.direction;
                 const newX = state.x + steps * Math.cos(rad);
                 const newY = state.y + steps * Math.sin(rad);
                 console.log(newX, newY);

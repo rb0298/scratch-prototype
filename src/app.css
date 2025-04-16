@@ -41,6 +41,9 @@ input[type="number"] {
   border-style: solid;
   border-color: white transparent transparent transparent;
 }
+button:disabled {
+  cursor: not-allowed;
+}
 
 @keyframes bubbleFadeIn {
   from {
