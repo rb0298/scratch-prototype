@@ -129,7 +129,6 @@ const Sidebar = () => {
 
     setInput(prevState => {
       const safeValue = Number.isNaN(updatedValue) ? '' : updatedValue;
-
       if (name === id) {
         return { ...prevState, [id]: safeValue };
       } else {

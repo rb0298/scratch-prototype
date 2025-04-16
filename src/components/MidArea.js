@@ -23,9 +23,6 @@ const Block = ({ block, onValueChange, onDragStart, onDragEnd, onDragOver, onDel
     onValueChange(blockId, finalValue);
   };
 
-  const handleInputClick = (e) => {
-    e.stopPropagation();
-  };
 
   return (
     <div
@@ -56,7 +53,6 @@ const Block = ({ block, onValueChange, onDragStart, onDragEnd, onDragOver, onDel
                 value={(item.name === name ? value[name] : value?.[name]?.[item.name]) ?? ''}
                 className={`bg-white/20 border border-white/30 rounded px-1 text-black ${item.className || ''}`}
                 onChange={(e) => handleInputChange(id, item.name, item.inputType, e.target.value)}
-                onClick={handleInputClick}
               />
             );
           }

@@ -36,7 +36,6 @@ export class ScratchMultiSpriteEngine {
                                     await this.executeCommand(spriteId, blocks[j]);
                                     if (state.isAnimating) {
                                         await new Promise(resolve => setTimeout(resolve, 300));
-
                                         // await new Promise(resolve => requestAnimationFrame(resolve));
                                         this.processCollisionQueue();
                                     }

@@ -7,7 +7,6 @@ import { Play, Stop } from "lucide-react";
 
 
 export default function PreviewArea({ avatarInstances, setAvatarInstances, selectedInstance, setSelectedInstance, play, handlePlay }) {
-  console.log(avatarInstances, 'avatarInstances');
 
   const previewAreaRef = useRef(null);
   const draggingInfo = useRef({
@@ -142,7 +141,7 @@ export default function PreviewArea({ avatarInstances, setAvatarInstances, selec
               Stop
             </button>
           </div>
-          {/* <div className="flex space-x-4">
+          <div className="flex space-x-4">
             <div className="flex items-center">
               <label className="mr-2 text-sm">X:</label>
               <input
@@ -167,7 +166,7 @@ export default function PreviewArea({ avatarInstances, setAvatarInstances, selec
               />
               <span className="ml-1 text-sm text-gray-500">%</span>
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="flex flex-wrap mt-4 space-x-4">
           {avatarInstances.map((avatar, index) => (

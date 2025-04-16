@@ -14,7 +14,6 @@ export default function App() {
     return [avatar];
   });
 
-  console.log(avatarInstances, 'avatarInstances')
   const [play, setPlay] = useState(false);
   const [selectedInstance, setSelectedInstance] = useState(avatarInstances?.[0] || null);
   const selectedAvatarIndex = avatarInstances.findIndex(avatar => avatar.id === selectedInstance?.id);
@@ -36,7 +35,6 @@ export default function App() {
     setPlay(newplay);
   }
 
-  console.log(play);
   useEffect(() => {
     if (!selectedInstance) return;
 
@@ -88,6 +86,10 @@ export default function App() {
           const { x, y } = engineRef.current.sprites.get(id).state
           return { ...prevAvatar, position: { x, y } };
         }))
+        setSelectedInstance(prevInstance => {
+          const { x, y } = engineRef.current.sprites.get(prevInstance.id).state
+          return { ...prevInstance, position: { x, y } };
+        })
       } else {
         engineRef.current.stopAll();
       }
